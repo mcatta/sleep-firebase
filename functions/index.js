@@ -10,10 +10,10 @@ admin.initializeApp()
 exports.storage = functions.region('europe-west2').storage.object().onFinalize(async (file) => {
 
     var fileObject = {
-        name : file.name,
+        name : file.name.replace('.mp3', ''),
         description: '',
         createAt: file.timeCreated,
-        storage: file.storage,
+        storage: `/${file.name}`,
         bucket: file.bucket
     };
 
