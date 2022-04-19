@@ -14,9 +14,9 @@ exports.storage = functions.region('europe-west2').storage.object().onFinalize(a
         description: '',
         createAt: file.timeCreated,
         storage: `/${file.name}`,
-        bucket: file.bucket
+        bucket: file.bucket,
+        order: 99
     };
 
-    console.log(file)
     return admin.firestore().doc(`/audio/${uuidv4()}`).set(fileObject)
 })
