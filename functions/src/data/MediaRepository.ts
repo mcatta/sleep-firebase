@@ -18,7 +18,7 @@ export class MediaRepository {
     async list() {
         const mediaQuery = await this._firestore
             .collection(AUDIO_COLLECTION)
-            .orderBy('order', 'desc')
+            .orderBy('order', 'asc')
             .get()
         return mediaQuery.docs.map(x => x.data() as MediaFile)
     }

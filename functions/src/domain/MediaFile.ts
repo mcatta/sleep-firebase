@@ -1,6 +1,8 @@
 
 export class MediaFile {
 
+    id: String
+
     order: Number
 
     description: String
@@ -11,7 +13,8 @@ export class MediaFile {
 
     createdAt: Date
 
-    constructor(order: Number, description: String, name: String, storage: String, createdAt: Date) {
+    constructor(id: String, order: Number, description: String, name: String, storage: String, createdAt: Date) {
+        this.id = id
         this.createdAt = createdAt
         this.storage = storage
         this.name = name

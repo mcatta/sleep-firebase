@@ -19,4 +19,4 @@ api.get('/', async (req: express.Request, res: express.Response) => {
         .json(await mediaRepository.list())
 })
 
-exports.media = functions.region('europe-west3').https.onRequest(api)
+exports.media = functions.region('europe-west2').https.onRequest(api)
