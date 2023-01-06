@@ -7,7 +7,6 @@ import {
 } from 'express'
 
 export const validateFirebaseIdToken = async (req: Request, res: Response, next: NextFunction) => {
-  logger.log('Check if request is authorized with Firebase ID token')
 
   if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) &&
     !(req.cookies && req.cookies.__session)) {
@@ -27,7 +26,6 @@ export const validateFirebaseIdToken = async (req: Request, res: Response, next:
     // Read the ID Token from the Authorization header.
     idToken = req.headers.authorization.split('Bearer ')[1]
   } else if (req.cookies) {
-    logger.log('Found "__session" cookie')
     // Read the ID Token from cookie.
     idToken = req.cookies.__session
   } else {
