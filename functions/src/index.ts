@@ -28,7 +28,7 @@ api.get('/url', async (req: express.Request, res: express.Response) => {
         .catch(_ => res.status(404).send())
 })
 
-api.get('/url/:id', async (req: express.Request, res: express.Response) => {
+api.get('/:id/url', async (req: express.Request, res: express.Response) => {
     let id = req.params.id
     
     dataSource.getSignedUrlById(id)
