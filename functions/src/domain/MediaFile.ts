@@ -1,18 +1,18 @@
 export class MediaFile {
 
-    id: String
+    id: string
 
-    order: Number
+    order: number
 
-    description: String
+    description: string
 
-    name: String
+    name: string
 
-    storage: String
+    storage: string
 
     createdAt: Date
 
-    constructor(id: String, order: Number, description: String, name: String, storage: String, createdAt: Date) {
+    constructor(id: string, order: number, description: string, name: string, storage: string, createdAt: Date) {
         this.id = id
         this.createdAt = createdAt
         this.storage = storage

@@ -23,7 +23,15 @@ api.get('/', async (req: express.Request, res: express.Response) => {
 api.get('/url', async (req: express.Request, res: express.Response) => {
     let path = req.query.path as string
     
-    dataSource.downloadUrl(path)
+    dataSource.getSignedUrlByPath(path)
+        .then(media => res.status(200).json(media))
+        .catch(_ => res.status(404).send())
+})
+
+api.get('/url/:id', async (req: express.Request, res: express.Response) => {
+    let id = req.params.id
+    
+    dataSource.getSignedUrlById(id)
         .then(media => res.status(200).json(media))
         .catch(_ => res.status(404).send())
 })

@@ -33,11 +33,11 @@ export class FirebaseDataSource {
     }
 
     /**
-     * Return signed URL
+     * Return signed URL by path
      * @param path 
      * @returns Url [MediaUrl]
      */
-    async downloadUrl(path: string): Promise<MediaUrl> {
+    async getSignedUrlByPath(path: string): Promise<MediaUrl> {
         const options: GetSignedUrlConfig = {
             version: 'v2', // defaults to 'v2' if missing.
             action: 'read',
@@ -48,6 +48,20 @@ export class FirebaseDataSource {
             .file(path)
             .getSignedUrl(options)
             .then(signedUrls => new MediaUrl(path, signedUrls[0]))
+   }
+
+    /**
+     * Return signed URL by ID
+     * @param id 
+     * @returns Url [MediaUrl]
+     */
+    async getSignedUrlById(id: string): Promise<MediaUrl> {
+        return this._firestore
+            .collection(AUDIO_COLLECTION)
+            .where(firestore.FieldPath.documentId(), "==", id)
+            .get()
+            .then( result => (result.docs[0].data() as MediaFile).storage)
+            .then( path => this.getSignedUrlByPath(path))
    }
     
 }
