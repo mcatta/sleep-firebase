@@ -22,7 +22,6 @@ export const validateFirebaseIdToken = async (req: Request, res: Response, next:
 
   let idToken
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
-    logger.log('Found "Authorization" header')
     // Read the ID Token from the Authorization header.
     idToken = req.headers.authorization.split('Bearer ')[1]
   } else if (req.cookies) {
@@ -35,9 +34,7 @@ export const validateFirebaseIdToken = async (req: Request, res: Response, next:
   }
 
   try {
-    const decodedIdToken = await firebase.auth().verifyIdToken(idToken)
-    logger.log('ID Token correctly decoded', decodedIdToken)
-    //req.user = decodedIdToken
+    await firebase.auth().verifyIdToken(idToken)
     next()
     return
   } catch (error) {
