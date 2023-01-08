@@ -4,5 +4,5 @@
 This is the serverless backend used for the [Android App Sleep](https://github.com/mcatta/sleep). It provides two API:
 
 - `/media` used to retrive the list of audio tracks
-- `/media/url?path=***` used to ask the URL for a specific audio track. This URL is signed with a specific expire time.
+- `/media/{id}/url` used to ask the URL for a specific audio track. This URL is signed with a specific expire time.
 

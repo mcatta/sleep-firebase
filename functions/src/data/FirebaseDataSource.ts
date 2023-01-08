@@ -38,16 +38,17 @@ export class FirebaseDataSource {
      * @returns Url [MediaUrl]
      */
     async getSignedUrlByPath(path: string): Promise<MediaUrl> {
+        const expireInSec = 60 * 60 // one hour
         const options: GetSignedUrlConfig = {
             version: 'v2', // defaults to 'v2' if missing.
             action: 'read',
-            expires: Date.now() + 1000 * 60 * 60, // one hour
+            expires: Date.now() + 1000 * expireInSec,
         }
 
         return this._bucket
             .file(path)
             .getSignedUrl(options)
-            .then(signedUrls => new MediaUrl(path, signedUrls[0]))
+            .then(signedUrls => new MediaUrl(path, signedUrls[0], expireInSec))
    }
 
     /**

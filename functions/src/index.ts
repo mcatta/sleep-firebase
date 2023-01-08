@@ -20,14 +20,6 @@ api.get('/', async (req: express.Request, res: express.Response) => {
         .catch(_ => res.status(500).send())
 })
 
-api.get('/url', async (req: express.Request, res: express.Response) => {
-    let path = req.query.path as string
-    
-    dataSource.getSignedUrlByPath(path)
-        .then(media => res.status(200).json(media))
-        .catch(_ => res.status(404).send())
-})
-
 api.get('/:id/url', async (req: express.Request, res: express.Response) => {
     let id = req.params.id
     
