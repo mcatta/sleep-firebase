@@ -45,10 +45,18 @@ export class FirebaseDataSource {
             expires: Date.now() + 1000 * expireInSec,
         }
 
-        return this._bucket
-            .file(path)
-            .getSignedUrl(options)
-            .then(signedUrls => new MediaUrl(path, signedUrls[0], expireInSec))
+        let file = this._bucket.file(path)
+        return file.exists()
+            .then((exists) => {
+                if (exists) {
+                    return file
+                        .getSignedUrl(options)
+                        .then(signedUrls => new MediaUrl(path, signedUrls[0], expireInSec))
+                } else {
+                    return Promise.reject('File not found')
+                }
+            })
+            
    }
 
     /**
