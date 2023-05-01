@@ -47,11 +47,11 @@ export class FirebaseDataSource {
 
         let file = this._bucket.file(path)
         return file.exists()
-            .then((exists) => {
-                if (exists) {
-                    return file
+            .then(async (exists) => {
+                if (exists[0] == true) {
+                    const signedUrls = await file
                         .getSignedUrl(options)
-                        .then(signedUrls => new MediaUrl(path, signedUrls[0], expireInSec))
+                    return new MediaUrl(path, signedUrls[0], expireInSec)
                 } else {
                     return Promise.reject('File not found')
                 }
