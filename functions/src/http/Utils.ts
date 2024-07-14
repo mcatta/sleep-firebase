@@ -16,7 +16,7 @@ export const validateFirebaseIdToken = async (req: Request, res: Response, next:
       'Authorization: Bearer <Firebase ID Token>',
       'or by passing a "__session" cookie.'
     )
-    res.status(403).send('Unauthorized')
+    res.status(ERROR_CODE_UNAUTHORIZED).send('Unauthorized')
     return
   }
 
@@ -29,7 +29,7 @@ export const validateFirebaseIdToken = async (req: Request, res: Response, next:
     idToken = req.cookies.__session
   } else {
     // No cookie
-    res.status(403).send('Unauthorized')
+    res.status(ERROR_CODE_UNAUTHORIZED).send('Unauthorized')
     return
   }
 
@@ -39,7 +39,9 @@ export const validateFirebaseIdToken = async (req: Request, res: Response, next:
     return
   } catch (error) {
     logger.error('Error while verifying Firebase ID token:', error)
-    res.status(403).send('Unauthorized')
+    res.status(ERROR_CODE_UNAUTHORIZED).send('Unauthorized')
     return
   }
 }
+
+const ERROR_CODE_UNAUTHORIZED = 403
